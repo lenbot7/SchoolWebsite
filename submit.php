@@ -15,8 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_message .= "Email: $email\n\n";
     $email_message .= "Message:\n$message\n";
     
+    // Set additional headers
+    $headers = "From: $name <$email>\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    
     // Send the email
-    $headers = "From: $name <$email>";
     if (mail($to, $subject, $email_message, $headers)) {
         echo "<p>Thank you for your message! We'll get back to you shortly.</p>";
     } else {
@@ -26,3 +31,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<p>Access denied. Please submit the form from the website.</p>";
 }
 ?>
+
